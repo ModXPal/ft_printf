@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 16:05:06 by rcollas           #+#    #+#             */
-/*   Updated: 2021/06/17 16:06:53 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/06/17 17:17:53 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 typedef struct	s_flag
 {
 	char	flag;
-	void	(*func)(va_list);
+	int		(*func)(va_list);
 }		t_flag;
 
 typedef	struct	s_tree

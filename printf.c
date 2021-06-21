@@ -1,175 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_test.c                                      :+:      :+:    :+:   */
+/*   printf.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 16:36:36 by rcollas           #+#    #+#             */
-/*   Updated: 2021/06/18 16:30:21 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/06/18 18:11:23 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_putstr(va_list str)
-{
-	char *test;
-	int	count;
-		
-	count = 0;
-	test = va_arg(str, char *);
-	while (*test)
-		count += write(1, test++, 1);
-	return (count);
-}
-
-int		ft_putnbr(va_list nb)
-{
-	long num;
-	int	tab[20];
-	int i;
-	int count;
-
-	i = 0;
-	count = 0;
-	num = va_arg(nb, int);
-	if (nb < 0)
-	{
-		num *= -1;
-		count += write (1, "-", 1);
-	}
-	while (num > 0)
-	{
-		tab[i++] = num % 10 + 48;
-		num /= 10;
-	}
-	while (i--)
-		count += write (1, &tab[i], 1); 
-	return (count);
-}
-
-int		ft_putnbr_unsigned(va_list nb)
-{
-	long unsigned num;
-	int	tab[20];
-	int i;
-	int count;
-
-	i = 0;
-	count = 0;
-	num = va_arg(nb, unsigned int);
-	if (nb < 0)
-	{
-		num *= -1;
-		count += write (1, "-", 1);
-	}
-	while (num > 0)
-	{
-		tab[i++] = num % 10 + 48;
-		num /= 10;
-	}
-	while (i--)
-		count += write (1, &tab[i], 1); 
-	return (count);
-}
-
-int		ft_putnbr_upbase(va_list nb)
-{
-	long num;
-	int	tab[20];
-	int i;
-	int count;
-	char *base;
-
-	i = 0;
-	count = 0;
-	num = va_arg(nb, int);
-	base = "0123456789ABCDEF";
-	if (nb < 0)
-	{
-		num *= -1;
-		count += write (1, "-", 1);
-	}
-	while (num > 0)
-	{
-		tab[i++] = num % 16;
-		num /= 16;
-	}
-	while (i--)
-		count += write (1, &base[tab[i]], 1); 
-	return (count);
-}
-
-int		ft_putnbr_lobase(va_list nb)
-{
-	long	num;
-	int	tab[20];
-	int	i;
-	int	count;
-	char	*base;
-
-	i = 0;
-	count = 0;
-	num = va_arg(nb, int);
-	base = "0123456789abcdef"; 
-	if (nb < 0)
-	{
-		num *= -1;
-		count += write (1, "-", 1);
-	}
-	while (num > 0)
-	{
-		tab[i++] = num % 16;
-		num /= 16;
-	}
-	while (i--)
-		count += write (1, &base[tab[i]], 1); 
-	return (count);
-}
-
-int		ft_put_ptr(va_list nb)
-{
-	long long	num;
-	int		tab[20];
-	int		i;
-	int		count;
-	char		*base;
-
-	i = 0;
-	count = 0;
-	num = va_arg(nb, long int);
-	base = "0123456789abcdef"; 
-	count += write (1, "0x", 2);
-	if (nb < 0)
-	{
-		num *= -1;
-		count += write (1, "-", 1);
-	}
-	while (num > 0)
-	{
-		tab[i++] = num % 16;
-		num /= 16;
-	}
-	while (i--)
-		count += write (1, &base[tab[i]], 1); 
-	return (count);
-}
-int	ft_putchar(va_list c)
-{
-	char	to_print;
-	int		count;
-
-	count = 0;
-	to_print = va_arg(c, int);
-	count += write (1, &to_print, 1);
-	return (count);
-}
-
-int	ft_put_percent(va_list nul)
-{
-	return (write (1, "%", 1));
-}
 
 void	init_flag(t_flag to_init[20])
 {
@@ -200,10 +41,10 @@ void	init_flag(t_flag to_init[20])
 	to_init[12].flag = 0;
 }
 
-int		ft_print_flag(t_flag func[20], char flag, va_list arg)
+int	ft_print_flag(t_flag func[20], char flag, va_list arg)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -213,16 +54,16 @@ int		ft_print_flag(t_flag func[20], char flag, va_list arg)
 		{
 			count += func[i].func(arg);
 			i = 0;
-			break;
+			break ;
 		}
 		i++;
 	}
 	return (count);
 }
 
-int		ft_printf(const char *str, ...)
+int	ft_printf(const char *str, ...)
 {
-	va_list arguments;
+	va_list	arguments;
 	t_flag	all_func[20];
 	int		count;
 
@@ -246,15 +87,15 @@ int		ft_printf(const char *str, ...)
 
 int	main(void)
 {
-	char *str = "test";
-	char *str2 = "l'annee";
-	char *str3 = "ici";
-	char *print = "rien";
-	char c = 'e';
-	int num = 2021;
-	int num1 = 100;
-	int ici = 0x12;
-	int *ptr;
+	char	*str = "test";
+	char	*str2 = "l'annee";
+	char	*str3 = "ici";
+	char	*print = "rien";
+	char	c = 'e';
+	int		num = 2021;
+	int		num1 = 100;
+	int		ici = 0x12;
+	int		*ptr;
 	unsigned int nb_un;
 
 	ptr = &num;

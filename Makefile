@@ -1,34 +1,32 @@
-SRCS	= printf.c\
-	  printf_utils_part1.c\
-	  printf_utils_part2.c\
+NAME=			libftprintf.a
 
-OBJS	= $(SRCS:.c=.o)
+INCLUDE_PATH=	include/
 
-NAME	= ft_printf
+SRC_FILES=		srcs/printf.c \
+				srcs/printf_utils_part1.c \
+				srcs/printf_utils_part2.c 
 
-CC	= gcc
+SRC_OBJS=		${SRC_FILES:.c=.o}
 
-RM	= rm -rf
+CC= 			gcc
 
-CFLAGS	= -Wall -Wextra -Werror -Iincludes
+CFLAGS=			-Wall -Wextra -Werror 
 
-all:	$(NAME)
+RM=				rm -f
 
-%.o : %.c
-	@$(CC) -c $(CFLAGS) $< -o $@
+AR=				ar rcs
 
-$(NAME):	$(OBJS)
-			@$(CC) $(CLFAGS) -o $(NAME) $^
-			@echo "$(NAME) compiled"
+all:			${NAME}
 
-clean:	
-			@$(RM) $(OBJS)
-			@echo ".o deleted"
+${NAME}:    	${SRC_OBJS}
+				${AR} ${NAME} ${SRC_OBJS}
 
-fclean: clean
-			@$(RM) $(NAME)
-			@echo "$(NAME) deleted"
+clean:
+				${RM} ${SRC_OBJS}
 
-re:	fclean all
+fclean: 		clean
+				${RM} ${NAME}
 
-.PHONY:	all clean fclean re
+re:         	fclean all
+
+.PHONY:        all clean fclean re

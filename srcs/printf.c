@@ -4,13 +4,11 @@
 /*   printf.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/16 16:36:36 by rcollas           #+#    #+#             */
-/*   Updated: 2021/06/18 18:11:23 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/06/21 11:53:03 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 void	init_flag(t_flag to_init[20])
 {
@@ -41,19 +39,18 @@ void	init_flag(t_flag to_init[20])
 	to_init[12].flag = 0;
 }
 
-int	ft_print_flag(t_flag func[20], char flag, va_list arg)
+int	ft_print_flag(t_flag func[20], char flag, va_list arg, t_spec *specifiers)
 {
 	int	i;
 	int	count;
 
 	i = 0;
 	count = 0;
-	while (func[i].flag != 0)
+	while (func[i].flag)
 	{
 		if (func[i].flag == flag)
 		{
-			count += func[i].func(arg);
-			i = 0;
+			count += func[i].func(arg, specifiers);
 			break ;
 		}
 		i++;
@@ -66,52 +63,81 @@ int	ft_printf(const char *str, ...)
 	va_list	arguments;
 	t_flag	all_func[20];
 	int		count;
+	t_spec	specifiers[1];
 
 	count = 0;
 	init_flag(all_func);
 	va_start(arguments, str);
+	specifiers->dot = 0;
+	specifiers->width = 0;
+	specifiers->dash = 0;
+	specifiers->zero = 0;
+	specifiers->after_dot = 0;
+	specifiers->before_dot = 0;
+	specifiers->precision = 0;
+	specifiers->wildcard = 0;
 	while (*str)
 	{
 		if (*str == '%')
 		{
 			str++;
-			count += ft_print_flag(all_func, *str, arguments);
+			while (*str == '-')
+			{
+				specifiers->dash = 1;
+				str++;
+			}
+			if (*str == '*')
+			{
+				specifiers->width = va_arg(arguments, int);
+				str++;
+			}
+			while (*str >= '0' && *str <= '9')
+				specifiers->width = specifiers->width * 10 + *str++ - 48; 
+			if (*str == '.')
+			{
+				specifiers->dot = 1;
+				str++;
+			}
+			if (specifiers->width && specifiers->dot)
+			{
+				specifiers->before_dot = 1;
+			}
+			if (*str == '*')
+			{
+				specifiers->precision = va_arg(arguments, int);
+				str++;
+			}
+			if (*str == '0')
+			{
+				specifiers->zero = 1;
+			}
+			if (specifiers->width < 0)
+			{
+				specifiers->width *= -1;
+				specifiers->dash = 1;
+			}
+			if (specifiers->precision < 0)
+			{
+				specifiers->precision *= -1;
+				specifiers->dash = 1;
+			}
+			while (*str >= '0' && *str <= '9')
+				specifiers->precision = specifiers->precision * 10 + *str++ - 48; 
+			count += ft_print_flag(all_func, *str, arguments, specifiers);
 			str++;
 		}	
-		count += write (1, str, 1);
-		str++;
+		if (*str)
+			count += write (1, str, 1);
+		if (*str)
+			str++;
+		specifiers->dot = 0;
+		specifiers->width = 0;
+		specifiers->dash = 0;
+		specifiers->zero = 0;
+		specifiers->after_dot = 0;
+		specifiers->before_dot = 0;
+		specifiers->precision = 0;
 	}
-	va_end(arguments);
+		va_end(arguments);
 	return (count);
-}
-
-int	main(void)
-{
-	char	*str = "test";
-	char	*str2 = "l'annee";
-	char	*str3 = "ici";
-	char	*print = "rien";
-	char	c = 'e';
-	int		num = 2021;
-	int		num1 = 100;
-	int		ici = 0x12;
-	int		*ptr;
-	unsigned int nb_un;
-
-	ptr = &num;
-	nb_un = 4294967295;
-	printf("%d\n", ft_printf("L%c %de m%cill%cur %s d%c %s %d s%c trouv%c %s\n", c, num1, c, c, str, c, str2, num, c, c, str3));
-	printf("test rp %%.2s ---> %.2s. \n", print);
-	printf("test rp %%.6d ---> %.6d \n", num);
-	printf("test rp %%-6d ----> %-6d |\n", num);
-	printf("test rp %%i hexa-----> %i\n", ici);
-	printf("test rp %%i hexa-----> %i\n", ici);
-	ft_printf("test mp %%d hexa-----> %d\n", ici);
-	ft_printf("test mp %%i hexa-----> %i\n", ici);
-	ft_printf("test mp %%p address ---> %p\n", ptr);
-	printf("test rp %%p address ---> %p\n", ptr);
-	printf("test rp %%-15p ----> %-15p|\n", ptr);
-	printf("test rp %%u ----> %u\n", nb_un);
-	ft_printf("test mp %%u ----> %u\n", nb_un);
-
 }

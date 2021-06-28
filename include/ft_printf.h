@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 16:05:06 by rcollas           #+#    #+#             */
-/*   Updated: 2021/06/22 19:08:41 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/06/28 11:10:29 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ typedef	struct s_spec
 	int dot;
 	int dash;
 	int	zero;
-	int	before_dot;
-	int after_dot;
 	int	precision;
 	int	wildcard;
 }	t_spec;
@@ -57,5 +55,7 @@ int	ft_nblen(int nb);
 int	ft_putnchar(char c, int len);
 int	ft_nblenbase(long nb);
 int	ft_printf(const char *str, ...);
+int	ft_isdigit(char c);
+int	ft_atoi(const char **);
 
 #endif

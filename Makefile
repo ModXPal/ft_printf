@@ -4,7 +4,8 @@ INCLUDE_PATH=	include/
 
 SRC_FILES=		srcs/printf.c \
 				srcs/printf_utils_part1.c \
-				srcs/printf_utils_part2.c 
+				srcs/printf_utils_part2.c \
+				srcs/printf_utils_part3.c
 
 SRC_OBJS=		${SRC_FILES:.c=.o}
 

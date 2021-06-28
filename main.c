@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 16:16:55 by rcollas           #+#    #+#             */
-/*   Updated: 2021/06/22 19:08:42 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/06/28 16:22:24 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ int	main(void)
 
 	ptr = &num;
 	nb_un = 4294967295;
-	printf(" %.*s \n", -2, NULL);
-	ft_printf(" %.*s \n", -2, NULL);
-	/*
 	printf("test rp %%2s -----------> %2s| \n", print);
 	ft_printf("test mp %%2s -----------> %2s| \n", print);
 	printf("test rp %%10s -----------> %10s| \n", print);
@@ -55,6 +52,10 @@ int	main(void)
 	ft_printf("test mp %%10.2s ---------> %10.2s|\n", print);
 	printf("test rp %%----20.0s -----> %----20.0s|\n", print);
 	ft_printf("test mp %%----20.0s -----> %----20.0s|\n", print);
+	printf("test rp %%.3s -----------> |%.3s|\n", NULL);
+	ft_printf("test mp %%.3s -----------> |%.3s|\n", NULL);
+	printf("test rp %%4.3s ----------> |%4.3s|\n", print);
+	ft_printf("test mp %%4.3s ----------> |%4.3s|\n", print);
 	printf("test rp %%.d ------------> %.d| \n", 0);
 	ft_printf("test mp %%.d ------------> %.d| \n", 0);
 	printf("test rp %%10d -----------> %10d| \n", num);
@@ -100,6 +101,9 @@ int	main(void)
 	ft_printf("test mp %%*s var --------> %*s|\n", var, print);
 	printf("test rp %%d %%*s var+15 -> %d, %*s|\n", var, 15, print);
 	ft_printf("test mp %%d %%*s var+15 -> %d, %*s|\n", var, 15, print);
-	*/
+	printf("test rp %%*.3s %%.3s 10 -> |%*.3s||%.3s| \n", 10, "123", "4567");
+	ft_printf("test mp %%*.3s %%.3s 10 -> |%*.3s||%.3s| \n", 10, "123", "4567");
+	printf("test rp %%.*s -----------> |%.*s|\n", -2, NULL);
+	ft_printf("test mp %%.*s -----------> |%.*s|\n", -2, NULL);
 }
 

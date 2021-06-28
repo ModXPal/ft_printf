@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 17:40:30 by rcollas           #+#    #+#             */
-/*   Updated: 2021/06/22 19:08:41 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/06/28 10:17:29 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,11 @@ int	ft_putnchar(char c, int len)
 	while (len--)
 		count += write (1, &c, 1);
 	return (count);
+}
+
+int	ft_isdigit(char c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }

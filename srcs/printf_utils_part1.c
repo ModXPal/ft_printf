@@ -6,49 +6,55 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 17:32:40 by rcollas           #+#    #+#             */
-/*   Updated: 2021/06/22 19:08:40 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/06/28 16:20:02 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
+
+int	get_len(t_spec *spec, char *str)
+{
+	int len;
+
+	len = 0;
+	if (spec->width > ft_strlen(str) && spec->dot && !spec->precision)
+		len = spec->width;
+	else if (spec->width > ft_strlen(str) && !spec->precision)
+		len = spec->width - ft_strlen(str);
+	else if (spec->dot && spec->width > spec->precision && spec->precision <= ft_strlen(str))
+		len = spec->width - spec->precision; 
+	else if (spec->width > ft_strlen(str) && spec->precision > ft_strlen(str))
+		len = spec->width - ft_strlen(str);
+	//printf("width = %d\n", spec->width);
+	//printf("precision= %d\n", spec->precision);
+	//printf("length = %d\n", ft_strlen(str));
+	//printf("len = %d\n", len);
+	return (len);
+}
 
 int	ft_putstr(va_list str, t_spec *specifiers)
 {
 	char	*string;
 	int		count;
 	int i;
+	int len;
 
 	count = 0;
 	i = 0;
 	string = va_arg(str, char *);
 	if (!string)
-	{
 		string = "(null)";
-		if (specifiers->precision && !specifiers->before_dot)
-			specifiers->precision = 6;
-	}
-	if (!specifiers->dash && specifiers->width > ft_strlen(string) && !specifiers->dot && !specifiers->precision)
-		count += ft_putnchar(' ', specifiers->width - ft_strlen(string));
-	else if (specifiers->before_dot && !specifiers->dash && specifiers->precision && specifiers->precision >= ft_strlen(string))
-		count += ft_putnchar(' ', specifiers->width - ft_strlen(string));
-	else if (specifiers->before_dot && !specifiers->dash && specifiers->precision)
-		count += ft_putnchar(' ', specifiers->width - specifiers->precision);
-	else if (specifiers->before_dot && !specifiers->after_dot && !specifiers->dash)
-		count += ft_putnchar(' ', specifiers->width);
+	len = get_len(specifiers, string);
+	if (!specifiers->dash)
+		count += ft_putnchar(' ', len);
 	if (specifiers->dot)
 		while (string[i] && i < specifiers->precision)
 			count += write(1, &string[i++], 1);
 	else
 		while (string[i])
 			count += write(1, &string[i++], 1);
-	if (specifiers->dash && specifiers->width > ft_strlen(string) && !specifiers->dot && !specifiers->precision)
-		count += ft_putnchar(' ', specifiers->width - ft_strlen(string));
-	else if (specifiers->before_dot && specifiers->dash && specifiers->precision && specifiers->precision >= ft_strlen(string))
-		count += ft_putnchar(' ', specifiers->width - ft_strlen(string));
-	else if (specifiers->before_dot && specifiers->dash && specifiers->precision)
-		count += ft_putnchar(' ', specifiers->width - specifiers->precision);
-	else if (specifiers->before_dot && !specifiers->after_dot && specifiers->dash)
-		count += ft_putnchar(' ', specifiers->width);
+	if (specifiers->dash)
+		count += ft_putnchar(' ', len);
 	return (count);
 }
 

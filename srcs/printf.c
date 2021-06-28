@@ -58,6 +58,16 @@ int	ft_print_flag(t_flag func[20], char flag, va_list arg, t_spec *specifiers)
 	return (count);
 }
 
+void	init_spec(t_spec *spec)
+{
+	spec->dot = 0;
+	spec->width = 0;
+	spec->dash = 0;
+	spec->zero = 0;
+	spec->precision = 0;
+	spec->wildcard = 0;
+}
+
 int	ft_printf(const char *str, ...)
 {
 	va_list	arguments;
@@ -68,14 +78,7 @@ int	ft_printf(const char *str, ...)
 	count = 0;
 	init_flag(all_func);
 	va_start(arguments, str);
-	specifiers->dot = 0;
-	specifiers->width = 0;
-	specifiers->dash = 0;
-	specifiers->zero = 0;
-	specifiers->after_dot = 0;
-	specifiers->before_dot = 0;
-	specifiers->precision = 0;
-	specifiers->wildcard = 0;
+	init_spec(specifiers);
 	while (*str)
 	{
 		if (*str == '%')
@@ -91,25 +94,22 @@ int	ft_printf(const char *str, ...)
 				specifiers->width = va_arg(arguments, int);
 				str++;
 			}
-			while (*str >= '0' && *str <= '9')
-				specifiers->width = specifiers->width * 10 + *str++ - 48; 
+			if (ft_isdigit(*str))
+				specifiers->width = ft_atoi(&str);
 			if (*str == '.')
 			{
 				specifiers->dot = 1;
 				str++;
 			}
-			if (specifiers->width && specifiers->dot)
+			if (*str == '0')
 			{
-				specifiers->before_dot = 1;
+				specifiers->zero = 1;
+				str++;
 			}
 			if (*str == '*')
 			{
 				specifiers->precision = va_arg(arguments, int);
 				str++;
-			}
-			if (*str == '0')
-			{
-				specifiers->zero = 1;
 			}
 			if (specifiers->width < 0)
 			{
@@ -118,11 +118,11 @@ int	ft_printf(const char *str, ...)
 			}
 			if (specifiers->precision < 0)
 			{
-				specifiers->precision *= -1;
-				specifiers->dash = 1;
+				specifiers->precision = 0;
+				specifiers->dot = 0;
 			}
-			while (*str >= '0' && *str <= '9')
-				specifiers->precision = specifiers->precision * 10 + *str++ - 48; 
+			if (ft_isdigit(*str))
+				specifiers->precision = ft_atoi(&str);
 			count += ft_print_flag(all_func, *str, arguments, specifiers);
 			str++;
 		}	
@@ -130,13 +130,7 @@ int	ft_printf(const char *str, ...)
 			count += write (1, str, 1);
 		if (*str)
 			str++;
-		specifiers->dot = 0;
-		specifiers->width = 0;
-		specifiers->dash = 0;
-		specifiers->zero = 0;
-		specifiers->after_dot = 0;
-		specifiers->before_dot = 0;
-		specifiers->precision = 0;
+		init_spec(specifiers);
 	}
 		va_end(arguments);
 	return (count);

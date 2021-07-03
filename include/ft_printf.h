@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 16:05:06 by rcollas           #+#    #+#             */
-/*   Updated: 2021/06/28 11:10:29 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/02 15:30:58 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,15 @@ typedef	struct s_spec
 	int	zero;
 	int	precision;
 	int	wildcard;
+	int	put_zero;
+	int	put_space;
+	int	count;
 }	t_spec;
 
 typedef struct s_flag
 {
 	char	flag;
-	int		(*func)(va_list, t_spec *);
+	void	(*func)(va_list, t_spec *);
 }		t_flag;
 
 typedef struct s_tree
@@ -42,20 +45,20 @@ typedef struct s_tree
 	struct s_flag	*trig;
 }	t_tree;
 
-int	ft_putstr(va_list str, t_spec *specifers);
-int	ft_putnbr(va_list nb, t_spec *specifers);
-int	ft_putnbr_unsigned(va_list nb, t_spec *specifers);
-int	ft_putnbr_upbase(va_list nb, t_spec *specifers);
-int	ft_putnbr_lobase(va_list nb, t_spec *specifers);
-int	ft_put_ptr(va_list nb, t_spec *specifers);
-int	ft_putchar(va_list c, t_spec *specifers);
-int	ft_put_percent(va_list nul, t_spec *specifers);
-int	ft_strlen(char *str);
-int	ft_nblen(int nb);
-int	ft_putnchar(char c, int len);
-int	ft_nblenbase(long nb);
-int	ft_printf(const char *str, ...);
-int	ft_isdigit(char c);
-int	ft_atoi(const char **);
+void	ft_putstr(va_list str, t_spec *spec);
+void	ft_putnbr(va_list nb, t_spec *spec);
+void	ft_putnbr_unsigned(va_list nb, t_spec *spec);
+void	ft_putnbr_upbase(va_list nb, t_spec *spec);
+void	ft_putnbr_lobase(va_list nb, t_spec *spec);
+void	ft_put_ptr(va_list nb, t_spec *spec);
+void	ft_putchar(va_list c, t_spec *spec);
+void	ft_put_percent(va_list nul, t_spec *spec);
+int		ft_putnchar(char c, int len);
+int		ft_strlen(char *str);
+int		ft_nblen(int nb);
+int		ft_nblenbase(long nb);
+int		ft_printf(const char *str, ...);
+int		ft_isdigit(char c);
+int		ft_atoi(const char **);
 
 #endif

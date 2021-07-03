@@ -6,60 +6,53 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 17:40:30 by rcollas           #+#    #+#             */
-/*   Updated: 2021/06/28 10:17:29 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/03 11:03:09 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 
-int	ft_put_ptr(va_list nb, t_spec *specifiers)
+void	ft_put_ptr(va_list nb, t_spec *spec)
 {
 	long long	num;
 	int			tab[20];
 	int			i;
-	int			count;
 	char		*base;
 	long 		tmp;
 
 	i = 0;
-	count = 0;
 	num = va_arg(nb, long int);
 	tmp = num;
 	base = "0123456789abcdef";
-	if (!specifiers->dash && specifiers->width > ft_nblenbase(num) && !specifiers->dot)
-		count += ft_putnchar(' ', specifiers->width - ft_nblenbase(num) - 2);
-	count += write (1, "0x", 2);
+	if (!spec->dash && spec->width > ft_nblenbase(num) && !spec->dot)
+		spec->count += ft_putnchar(' ', spec->width - ft_nblenbase(num) - 2);
+	spec->count += write (1, "0x", 2);
 	while (num > 0)
 	{
 		tab[i++] = num % 16;
 		num /= 16;
 	}
 	while (i--)
-		count += write (1, &base[tab[i]], 1);
-	if (specifiers->dash && specifiers->width > ft_nblenbase(tmp) && !specifiers->dot)
+		spec->count += write (1, &base[tab[i]], 1);
+	if (spec->dash && spec->width > ft_nblenbase(tmp) && !spec->dot)
 	{
-		count += ft_putnchar(' ', specifiers->width - ft_nblenbase(tmp) - 2);
+		spec->count += ft_putnchar(' ', spec->width - ft_nblenbase(tmp) - 2);
 	}
-	return (count);
 }
 
-int	ft_putchar(va_list c, t_spec *specifiers)
+void	ft_putchar(va_list c, t_spec *spec)
 {
 	char	to_print;
-	int		count;
 
-	(void)specifiers;
-	count = 0;
 	to_print = va_arg(c, int);
-	count += write (1, &to_print, 1);
-	return (count);
+	spec->count += write (1, &to_print, 1);
 }
 
-int	ft_put_percent(va_list nul, t_spec *specifiers)
+void	ft_put_percent(va_list nul, t_spec *spec)
 {
 	(void)nul;
-	(void)specifiers;
-	return (write (1, "%", 1));
+	(void)spec;
+	spec->count += write (1, "%", 1);
 }
 
 int	ft_strlen(char *str)
@@ -80,9 +73,12 @@ int	ft_nblen(int nb)
 	i = 0;
 	num = nb;
 	if (num == 0)
-		return (1);
+		return (0);
 	if (num < 0)
+	{
 		num *= -1;
+		i++;
+	}
 	while (num > 0)
 	{
 		num /= 10;

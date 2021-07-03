@@ -39,23 +39,20 @@ void	init_flag(t_flag to_init[20])
 	to_init[12].flag = 0;
 }
 
-int	ft_print_flag(t_flag func[20], char flag, va_list arg, t_spec *specifiers)
+void	ft_print_flag(t_flag func[20], char flag, va_list arg, t_spec *specifiers)
 {
 	int	i;
-	int	count;
 
 	i = 0;
-	count = 0;
 	while (func[i].flag)
 	{
 		if (func[i].flag == flag)
 		{
-			count += func[i].func(arg, specifiers);
+			func[i].func(arg, specifiers);
 			break ;
 		}
 		i++;
 	}
-	return (count);
 }
 
 void	init_spec(t_spec *spec)
@@ -66,6 +63,8 @@ void	init_spec(t_spec *spec)
 	spec->zero = 0;
 	spec->precision = 0;
 	spec->wildcard = 0;
+	spec->put_zero = 0;
+	spec->put_space = 0;
 }
 
 int	ft_printf(const char *str, ...)
@@ -79,15 +78,30 @@ int	ft_printf(const char *str, ...)
 	init_flag(all_func);
 	va_start(arguments, str);
 	init_spec(specifiers);
+	specifiers->count = 0;
 	while (*str)
 	{
 		if (*str == '%')
 		{
 			str++;
-			while (*str == '-')
+			if (*str == '-')
 			{
 				specifiers->dash = 1;
-				str++;
+				while (*str == '-' || *str == '0')
+					str++;
+			}
+			if (*str == '0')
+			{
+				specifiers->zero = 1;
+				while (*str == '0' || *str == '-')
+				{
+					if (*str == '-' || specifiers->dash)
+					{
+						specifiers->zero = 0;
+						specifiers->dash = 1;
+					}
+					str++;
+				}
 			}
 			if (*str == '*')
 			{
@@ -101,11 +115,6 @@ int	ft_printf(const char *str, ...)
 				specifiers->dot = 1;
 				str++;
 			}
-			if (*str == '0')
-			{
-				specifiers->zero = 1;
-				str++;
-			}
 			if (*str == '*')
 			{
 				specifiers->precision = va_arg(arguments, int);
@@ -115,6 +124,7 @@ int	ft_printf(const char *str, ...)
 			{
 				specifiers->width *= -1;
 				specifiers->dash = 1;
+				specifiers->zero = 0;
 			}
 			if (specifiers->precision < 0)
 			{
@@ -123,15 +133,15 @@ int	ft_printf(const char *str, ...)
 			}
 			if (ft_isdigit(*str))
 				specifiers->precision = ft_atoi(&str);
-			count += ft_print_flag(all_func, *str, arguments, specifiers);
+			ft_print_flag(all_func, *str, arguments, specifiers);
 			str++;
 		}	
 		if (*str)
-			count += write (1, str, 1);
+			specifiers->count += write (1, str, 1);
 		if (*str)
 			str++;
 		init_spec(specifiers);
 	}
 		va_end(arguments);
-	return (count);
+	return (specifiers->count);
 }

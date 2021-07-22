@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 17:32:40 by rcollas           #+#    #+#             */
-/*   Updated: 2021/07/20 15:50:43 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/22 18:38:55 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	get_nbr_len(t_spec *spec, int nb)
 	nb_len = ft_nblen(nb);
 	if (nb < 0 && spec->dot)
 		nb_len--;
-	if (nb == 0 && !spec->dot && spec->zero)
+	if (nb == 0 && !spec->dot && spec->zero && spec->width)
 		spec->put_zero = spec->width - 1;
 	else if (spec->precision >= ft_nblen(nb) && spec->width > spec->precision)
 	{
@@ -68,9 +68,9 @@ void	get_nbr_len(t_spec *spec, int nb)
 	}
 	else if (spec->precision >= ft_nblen(nb) && spec->width <= spec->precision)
 		spec->put_zero = spec->precision - nb_len;
-	else if (spec->width > ft_nblen(nb) && spec->zero && !spec->dot)
+	else if (spec->width > nb_len && spec->zero && !spec->dot)
 		spec->put_zero = spec->width - nb_len;
-	else if (spec->precision <= ft_nblen(nb) && spec->width > ft_nblen(nb))
+	else if (spec->precision <= nb_len && spec->width > nb_len)
 		spec->put_space = spec->width - nb_len;
 	if (nb < 0 && spec->put_space && spec->dot)
 		spec->put_space--;
@@ -122,7 +122,7 @@ void	get_unbr_len(t_spec *spec, unsigned int nb)
 	int	nb_len;
 
 	nb_len = ft_unblen(nb);
-	if (nb == 0 && !spec->dot && spec->zero)
+	if (nb == 0 && !spec->dot && spec->zero && spec->width)
 		spec->put_zero = spec->width - 1;
 	else if (spec->precision >= nb_len && spec->width > spec->precision)
 	{
@@ -167,12 +167,12 @@ void	ft_putnbr_unsigned(va_list nb, t_spec *spec)
 		spec->count += ft_putnchar(' ', spec->put_space);
 }
 
-void	get_hexa_len(t_spec *spec, long nb)
+void	get_hexa_len(t_spec *spec, unsigned int nb)
 {
 	int	nb_len;
 
 	nb_len = ft_nblenbase(nb);
-	if (nb == 0 && !spec->dot && spec->zero)
+	if (nb == 0 && !spec->dot && spec->zero && spec->width)
 		spec->put_zero = spec->width - 1;
 	else if (spec->precision >= nb_len && spec->width > spec->precision)
 	{
@@ -185,8 +185,10 @@ void	get_hexa_len(t_spec *spec, long nb)
 		spec->put_zero = spec->width - nb_len;
 	else if (spec->precision <= nb_len && spec->width > nb_len)
 		spec->put_space = spec->width - nb_len;
-	if (nb == 0 && !spec->dot && spec->put_space)
-		spec->put_space--;
+	if (nb == 0 && spec->dot && !spec->precision && spec->width)
+		spec->put_space++;
+	//if (nb == 0 && !spec->dot && spec->put_space)
+	//	spec->put_space--;
 }
 
 void	ft_putnbr_upbase(va_list nb, t_spec *spec)
@@ -200,7 +202,7 @@ void	ft_putnbr_upbase(va_list nb, t_spec *spec)
 	num = va_arg(nb, int);
 	base = "0123456789ABCDEF";
 	get_hexa_len(spec, num);
-	if (num == 0)
+	if (num == 0 && !(spec->dot && !spec->precision))
 		tab[i++] = 0;
 	if (!spec->dash)
 		spec->count += ft_putnchar(' ', spec->put_space);
@@ -227,7 +229,7 @@ void	ft_putnbr_lobase(va_list nb, t_spec *spec)
 	num = va_arg(nb, int);
 	base = "0123456789abcdef";
 	get_hexa_len(spec, num);
-	if (num == 0)
+	if (num == 0 && !(spec->dot && !spec->precision))
 		tab[i++] = 0;
 	if (!spec->dash)
 		spec->count += ft_putnchar(' ', spec->put_space);

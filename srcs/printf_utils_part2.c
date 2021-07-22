@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 17:40:30 by rcollas           #+#    #+#             */
-/*   Updated: 2021/07/20 15:45:41 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/22 15:07:50 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ void	ft_put_ptr(va_list nb, t_spec *spec)
 	if (!spec->dash && spec->width > ft_nblenbase(num) + 2 && !spec->dot)
 		spec->count += ft_putnchar(' ', spec->width - ft_nblenbase(num) - 2);
 	if (num == 0)
-		spec->count += ft_putstr("(nil)");
-	else
-		spec->count += write (1, "0x", 2);
+		tab[i++] = 0;
+	spec->count += write (1, "0x", 2);
 	while (num > 0)
 	{
 		tab[i++] = num % 16;

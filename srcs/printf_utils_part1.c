@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/18 17:32:40 by rcollas           #+#    #+#             */
-/*   Updated: 2021/07/20 15:50:43 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/22 15:46:53 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	get_nbr_len(t_spec *spec, int nb)
 	nb_len = ft_nblen(nb);
 	if (nb < 0 && spec->dot)
 		nb_len--;
-	if (nb == 0 && !spec->dot && spec->zero)
+	if (nb == 0 && !spec->dot && spec->zero && spec->width)
 		spec->put_zero = spec->width - 1;
 	else if (spec->precision >= ft_nblen(nb) && spec->width > spec->precision)
 	{
@@ -167,7 +167,7 @@ void	ft_putnbr_unsigned(va_list nb, t_spec *spec)
 		spec->count += ft_putnchar(' ', spec->put_space);
 }
 
-void	get_hexa_len(t_spec *spec, long nb)
+void	get_hexa_len(t_spec *spec, unsigned int nb)
 {
 	int	nb_len;
 

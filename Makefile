@@ -2,10 +2,11 @@ NAME=			libftprintf.a
 
 INCLUDE_PATH=	include/
 
-SRC_FILES=		srcs/printf.c \
-				srcs/printf_utils_part1.c \
-				srcs/printf_utils_part2.c \
-				srcs/printf_utils_part3.c
+SRC_FILES=		srcs/printf_bonus.c \
+				srcs/printf_utils_part1_bonus.c \
+				srcs/printf_utils_part2_bonus.c \
+				srcs/printf_utils_part3_bonus.c
+
 BONUS=			srcs/printf_bonus.c \
 			srcs/printf_utils_part1_bonus.c \
 			srcs/printf_utils_part2_bonus.c \
@@ -42,4 +43,4 @@ fclean: 		clean
 
 re:         	fclean all
 
-.PHONY:        all clean fclean re
+.PHONY:        all clean fclean re bonus

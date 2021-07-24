@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:17:47 by rcollas           #+#    #+#             */
-/*   Updated: 2021/07/24 19:52:31 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/24 20:18:48 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	is_dash_zero(t_spec *spec, const char **str)
 
 void	parser(t_spec *spec, va_list arguments, const char **str)
 {
-	(*str)++;
 	if (**str == ' ')
 		spec->count += write (1, " ", 1);
 	while (**str == ' ' && **str)
@@ -78,5 +77,4 @@ void	parser(t_spec *spec, va_list arguments, const char **str)
 	}
 	if (ft_isdigit(**str))
 		spec->precision = ft_atoi(str);
-	negative_width_precision(spec);
 }

@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:30:28 by rcollas           #+#    #+#             */
-/*   Updated: 2021/07/24 20:08:18 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/24 20:14:47 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,9 @@ void	ft_put_ptr(va_list nb, t_spec *spec)
 	int				tab[20];
 	int				i;
 	char			*base;
-	unsigned long	tmp;
 
 	i = 0;
 	num = va_arg(nb, long int);
-	tmp = num;
 	base = "0123456789abcdef";
 	get_ptr_len(spec, num);
 	if (!spec->dash && spec->precision < ft_nblenbase(num))
@@ -120,7 +118,7 @@ void	ft_put_ptr(va_list nb, t_spec *spec)
 		tab[i++] = 0;
 	spec->count += write (1, "0x", 2);
 	if (spec->precision > ft_nblenbase(num))
-			spec->count += ft_putnchar('0', spec->put_zero);
+		spec->count += ft_putnchar('0', spec->put_zero);
 	while (num > 0)
 	{
 		tab[i++] = num % 16;

@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 16:05:06 by rcollas           #+#    #+#             */
-/*   Updated: 2021/07/20 15:45:48 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/24 16:58:40 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,6 @@ typedef struct s_flag
 	void	(*func)(va_list, t_spec *);
 }		t_flag;
 
-typedef struct s_tree
-{
-	char			flag;
-	struct s_tree	*left;
-	struct s_tree	*right;
-	struct s_flag	*trig;
-}	t_tree;
-
 void	ft_putstring(va_list str, t_spec *spec);
 void	ft_putnbr(va_list nb, t_spec *spec);
 void	ft_putnbr_unsigned(va_list nb, t_spec *spec);
@@ -53,7 +45,10 @@ void	ft_putnbr_lobase(va_list nb, t_spec *spec);
 void	ft_put_ptr(va_list nb, t_spec *spec);
 void	ft_putchar(va_list c, t_spec *spec);
 void	ft_put_percent(va_list nul, t_spec *spec);
-int	get_str_len(t_spec *spec, char *str);
+void	ft_print_flag(t_flag func[9], char flag, va_list arg, t_spec *spec);
+void	parser(t_spec *spec, va_list arguments, const char **str);
+void	init_flag(t_flag to_init[9]);
+int		get_str_len(t_spec *spec, char *str);
 int		ft_putnchar(char c, int len);
 int		ft_strlen(char *str);
 int		ft_nblen(int nb);

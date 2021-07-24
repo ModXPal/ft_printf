@@ -2,15 +2,23 @@ NAME=			libftprintf.a
 
 INCLUDE_PATH=	include/
 
-SRC_FILES=		srcs/printf_bonus.c \
-				srcs/printf_utils_part1_bonus.c \
-				srcs/printf_utils_part2_bonus.c \
-				srcs/printf_utils_part3_bonus.c
+SRC_FILES=		srcs/ft_printf.c \
+				srcs/printf_utils1.c \
+				srcs/printf_utils2.c \
+				srcs/decimal_number.c \
+				srcs/hexa_number_pointer.c \
+				srcs/parser.c \
+				srcs/strings_and_char.c \
+				srcs/to_print.c
 
-BONUS=			srcs/printf_bonus.c \
-			srcs/printf_utils_part1_bonus.c \
-			srcs/printf_utils_part2_bonus.c \
-			srcs/printf_utils_part3_bonus.c
+BONUS=			srcs/ft_printf.c \
+				srcs/printf_utils1.c \
+				srcs/printf_utils2.c \
+				srcs/decimal_number.c \
+				srcs/hexa_number_pointer.c \
+				srcs/parser.c \
+				srcs/strings_and_char.c \
+				srcs/to_print.c
 
 SRC_OBJS=		${SRC_FILES:.c=.o}
 

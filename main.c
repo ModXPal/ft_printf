@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 16:16:55 by rcollas           #+#    #+#             */
-/*   Updated: 2021/07/22 18:38:57 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/24 17:39:34 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,6 @@
 
 int	main(void)
 {
-	char	*str = "test";
-	char	*str2 = "l'annee";
-	char	*str3 = "ici";
-	char	*print = "rien";
-	char	c = 'e';
-	int		num = 2021;
-	int		num1 = 100;
-	int		ici = 0x12;
-	int		*ptr;
-	int 	var = 10;
-	unsigned int nb_un;
-
-	ptr = &num;
-	nb_un = 4294967295;
-	ft_printf("Salut tout le monde !\n");
 	/*
 	printf("test rp %%010.2d --> |%010.2d| \n", 5);
 	ft_printf("test mp %%010.2d --> |%010.2d| \n", 5);
@@ -104,6 +89,7 @@ int	main(void)
 	ft_printf("test mp %%x -1 ----> |%x| \n", -1);
 	printf("test rp %%x -10 ----> |%x| \n", -10);
 	ft_printf("test mp %%x -10 ----> |%x| \n", -10);
+	*/
 	printf("test rp %%p %%p LONG_MIN LONG_MAX ----> |%p %p| \n", -2147483648, 2147483647);
 	ft_printf("test mp %%p %%p LONG_MIN LONG_MAX ----> |%p %p| \n", -2147483648, 2147483647);
 	printf("test rp %%p %%p 0 0 -----> |%p %p| \n", 0, 0);
@@ -116,7 +102,6 @@ int	main(void)
 	ft_printf("retour mp = %d ||| \n", ft_printf("test mp %%-3p 16 ---> |%-3p| \n", 16));
 	printf("test rp %%-9p %%-10p LONG_MIN_MAX ---> |%-9p %-10p| \n", -9223372036854775808, 9223372036854775807);
 	ft_printf("test mp %%-9p %%-10p LONG_MIN_MAX ---> |%-9p %-10p| \n", -9223372036854775808, 9223372036854775807);
-	*/
 	printf("retour rp = %d \n", printf("test rp %%-15x LONG_MAX ---> |%-15x| \n", 9223372036854775807LL));
 	printf("retour mp = %d \n", ft_printf("test mp %%-15x LONG_MAX ---> |%-15x| \n", 9223372036854775807LL));
 	printf("test rp %%4.3x ----> |%*.*x| \n", 4, 3, 0);
@@ -125,6 +110,16 @@ int	main(void)
 	ft_printf("test mp %%-4.0x ---> |%*.*x| \n", -4, 0, 0);
 	printf("test rp %%-1.0x ---> |%*.*x| \n", -1, 0, 0);
 	ft_printf("test mp %%-1.0x ---> |%*.*x| \n", -1, 0, 0);
+	printf("test rp %%-4.c ---> |%-4.c| \n", 'y');
+	ft_printf("test mp %%-4.c ---> |%-4.c| \n", 'y');
+	printf("test rp %%-1.c ---> |%-1.c| \n", 'y');
+	ft_printf("test mp %%-1.c ---> |%-1.c| \n", 'y');
+	printf("test rp %%-16.p ---> |%-16.p| \n", 0);
+	ft_printf("test mp %%-16.p ---> |%-16.p| \n", 0);
+	printf("test rp %%02.%% ---> |%02.%| \n");
+	ft_printf("test mp %%02.%% ---> |%02.%| \n");
+	printf("test rp %%02.-4%% ---> |%0*.*%| \n", 2, -4);
+	ft_printf("test mp %%02.-4%% ---> |%0*.*%| \n", 2, -4);
 //	printf("retour rp = %d \n", printf("test rp %%-15x LONG_MAX ---> |%-15x| \n", 2147483647));
 //	printf("retour mp = %d \n", ft_printf("test mp %%-15x LONG_MAX ---> |%-15x| \n", 2147483647));
 //	ft_printf("%0i, %0d, %0d, %0d, %0d, %0d, %0d, %0d", 8, -12, 123456789, 0, -12345678, 'a', -2147483748, 2147483647);

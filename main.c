@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 16:16:55 by rcollas           #+#    #+#             */
-/*   Updated: 2021/07/24 17:39:34 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/24 19:53:53 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	main(void)
 	ft_printf("test mp %%x -1 ----> |%x| \n", -1);
 	printf("test rp %%x -10 ----> |%x| \n", -10);
 	ft_printf("test mp %%x -10 ----> |%x| \n", -10);
-	*/
 	printf("test rp %%p %%p LONG_MIN LONG_MAX ----> |%p %p| \n", -2147483648, 2147483647);
 	ft_printf("test mp %%p %%p LONG_MIN LONG_MAX ----> |%p %p| \n", -2147483648, 2147483647);
 	printf("test rp %%p %%p 0 0 -----> |%p %p| \n", 0, 0);
@@ -124,7 +123,6 @@ int	main(void)
 //	printf("retour mp = %d \n", ft_printf("test mp %%-15x LONG_MAX ---> |%-15x| \n", 2147483647));
 //	ft_printf("%0i, %0d, %0d, %0d, %0d, %0d, %0d, %0d", 8, -12, 123456789, 0, -12345678, 'a', -2147483748, 2147483647);
 //	ft_printf("%0d \n", 0);
-	/*
 	printf("test rp CHAR_MAX CHAR_MIN --0*%%-0*.2d*0 0*%%-0*.2d*0-- --> |--0*%-0*.2d*0 0*%-0*.2d*0--| \n", -21, 127, 21, -128); 
 	ft_printf("test mp CHAR_MAX CHAR_MIN --0*%%-0*.2d*0 0*%%-0*.2d*0-- --> |--0*%-0*.2d*0 0*%-0*.2d*0--| \n", -21, 127, 21, -128); 
 	printf("test rp 0*%%0-*d*0 0*%%0*d*0 ----> |0*%0-*d*0 0*%0*d*0| \n", 21, 1021, 21, -1011);
@@ -174,6 +172,14 @@ int	main(void)
 	ft_printf("test mp %%*.3s %%.3s 10 -> |%*.3s||%.3s| \n", 10, "123", "4567");
 	printf("test rp %%.*s -----------> |%.*s|\n", -2, NULL);
 	ft_printf("test mp %%.*s -----------> |%.*s|\n", -2, NULL);
+	printf("test rp %%   *.6i ---> |%   *.6i| \n", 2, 42);
+	ft_printf("test mp %%   *.6i ---> |%   *.6i| \n", 2, 42);
+	printf("%");
+	ft_printf("%");
+	printf("test rp %%09s ---> |%09s| \n", "test");
+	ft_printf("test mp %%09s ---> |%09s| \n", "test");
 	*/
+	printf("test rp %%2.9p ---> |%2.9p| \n", 1234);
+	ft_printf("test mp %%2.9p ---> |%2.9p| \n", 1234);
 }
 

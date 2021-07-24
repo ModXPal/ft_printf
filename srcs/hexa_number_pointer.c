@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:30:28 by rcollas           #+#    #+#             */
-/*   Updated: 2021/07/24 17:28:35 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/24 20:08:18 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,33 +90,37 @@ void	ft_putnbr_lobase(va_list nb, t_spec *spec)
 
 void	get_ptr_len(t_spec *spec, unsigned long num)
 {
-	int nb_len;
+	int	nb_len;
 
 	nb_len = ft_nblenbase(num);
 	if (num == 0 && spec->dot && !spec->precision)
 		nb_len = 0;
-	if (spec->width > nb_len + 2)
+	if (spec->precision > nb_len + 2)
+		spec->put_zero = spec->precision - nb_len;
+	else if (spec->width > nb_len + 2)
 		spec->put_space = spec->width - nb_len - 2;
 }
 
 void	ft_put_ptr(va_list nb, t_spec *spec)
 {
 	unsigned long	num;
-	int			tab[20];
-	int			i;
-	char		*base;
-	unsigned long 		tmp;
+	int				tab[20];
+	int				i;
+	char			*base;
+	unsigned long	tmp;
 
 	i = 0;
 	num = va_arg(nb, long int);
 	tmp = num;
 	base = "0123456789abcdef";
 	get_ptr_len(spec, num);
-	if (!spec->dash)
+	if (!spec->dash && spec->precision < ft_nblenbase(num))
 		spec->count += ft_putnchar(' ', spec->put_space);
 	if (num == 0 && !(spec->dot && !spec->precision))
 		tab[i++] = 0;
 	spec->count += write (1, "0x", 2);
+	if (spec->precision > ft_nblenbase(num))
+			spec->count += ft_putnchar('0', spec->put_zero);
 	while (num > 0)
 	{
 		tab[i++] = num % 16;

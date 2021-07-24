@@ -9,7 +9,8 @@ SRC_FILES=		srcs/ft_printf.c \
 				srcs/hexa_number_pointer.c \
 				srcs/parser.c \
 				srcs/strings_and_char.c \
-				srcs/to_print.c
+				srcs/to_print.c \
+				srcs/percent.c
 
 BONUS=			srcs/ft_printf.c \
 				srcs/printf_utils1.c \
@@ -18,7 +19,8 @@ BONUS=			srcs/ft_printf.c \
 				srcs/hexa_number_pointer.c \
 				srcs/parser.c \
 				srcs/strings_and_char.c \
-				srcs/to_print.c
+				srcs/to_print.c \
+				srcs/percent.c
 
 SRC_OBJS=		${SRC_FILES:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:28:02 by rcollas           #+#    #+#             */
-/*   Updated: 2021/07/24 16:28:26 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/24 17:47:00 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_putnchar(char c, int len)
 {
-	int count;
+	int	count;
 
-	count  = 0;
+	count = 0;
 	while (len--)
 		count += write (1, &c, 1);
 	return (count);

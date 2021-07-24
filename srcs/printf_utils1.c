@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:26:44 by rcollas           #+#    #+#             */
-/*   Updated: 2021/07/24 16:32:49 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/24 17:46:49 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_strlen(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -24,8 +24,8 @@ int	ft_strlen(char *str)
 
 int	ft_nblen(int nb)
 {
-	long num;
-	int i;
+	long	num;
+	int		i;
 
 	i = 0;
 	num = nb;
@@ -46,7 +46,7 @@ int	ft_nblen(int nb)
 
 int	ft_unblen(unsigned int nb)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (nb == 0)
@@ -61,7 +61,7 @@ int	ft_unblen(unsigned int nb)
 
 int	ft_nblenbase(unsigned long int nb)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (nb == 0)

@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:18:53 by rcollas           #+#    #+#             */
-/*   Updated: 2021/07/24 16:38:04 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/24 20:09:21 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	ft_printf(const char *str, ...)
 		{
 			parser(specifiers, arguments, &str);
 			ft_print_flag(all_func, *str, arguments, specifiers);
-			str++;
+			if (*str)
+				str++;
 		}
 		if (*str == '%')
 			continue ;

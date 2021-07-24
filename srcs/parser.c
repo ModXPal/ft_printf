@@ -6,7 +6,7 @@
 /*   By: rcollas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:17:47 by rcollas           #+#    #+#             */
-/*   Updated: 2021/07/24 16:18:39 by rcollas          ###   ########.fr       */
+/*   Updated: 2021/07/24 19:52:31 by rcollas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	negative_width_precision(t_spec *spec)
 
 void	is_dash_zero(t_spec *spec, const char **str)
 {
-	if (**str == '-')
+	if (**str == '-' && **str)
 	{
 		spec->dash = 1;
-		while (**str == '-' || **str == '0')
+		while ((**str == '-' || **str == '0') && **str)
 			(*str)++;
 	}
 	else if (**str == '0')
@@ -53,6 +53,10 @@ void	is_dash_zero(t_spec *spec, const char **str)
 void	parser(t_spec *spec, va_list arguments, const char **str)
 {
 	(*str)++;
+	if (**str == ' ')
+		spec->count += write (1, " ", 1);
+	while (**str == ' ' && **str)
+		(*str)++;
 	if (**str == '-' || **str == '0')
 		is_dash_zero(spec, str);
 	if (**str == '*')
